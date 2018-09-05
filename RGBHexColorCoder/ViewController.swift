@@ -10,16 +10,35 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var redTextField: UITextField!
+    @IBOutlet weak var greenTextField: UITextField!
+    @IBOutlet weak var blueTextField: UITextField!
+    @IBOutlet weak var alphaTextField: UITextField!
+    @IBOutlet weak var conversionButton: UIButton!
+    @IBOutlet weak var resultsLabel: UILabel!
+    
+    enum Conversion{
+        
+        case hexToRGB
+        case RGBToHex
+    }
+    
+    var conversion : Conversion = .hexToRGB
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+   
+    @IBAction func selectSegmentAction(_ sender: UISegmentedControl) {
+        
     }
-
-
+    
+    @IBAction func convertAction(_ sender: UIButton) {
+        
+    }
+    
 }
 
