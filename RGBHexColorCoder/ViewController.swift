@@ -34,10 +34,38 @@ class ViewController: UIViewController {
    
     @IBAction func selectSegmentAction(_ sender: UISegmentedControl) {
         
+        switch sender.selectedSegmentIndex {
+        case 0:
+        conversion = .hexToRGB
+            conversionButton.setTitle("Convert hex to RGB", for: .normal)
+            
+        case 1 :
+          conversion = .RGBToHex
+            conversionButton.setTitle("Convert RGB to hex", for: .normal)
+        default:
+            conversion = .hexToRGB
+            conversionButton.setTitle("Convert hex to RGB", for: .normal)
+        }
+        
+        print(conversion)
+        redTextField.text?.removeAll()
+        greenTextField.text?.removeAll()
+        blueTextField.text?.removeAll()
+        alphaTextField.text?.removeAll()
     }
     
     @IBAction func convertAction(_ sender: UIButton) {
         
+        
+        
+    }
+    
+    func convertHexToRGB(){
+        
+    }
+    
+    func convertRGBToHex()  {
+    
     }
     
 }
