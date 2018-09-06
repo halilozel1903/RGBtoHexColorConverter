@@ -56,8 +56,20 @@ class ViewController: UIViewController {
     
     @IBAction func convertAction(_ sender: UIButton) {
         
+        guard let redText = redTextField.text else {return}
+        guard let greenText = greenTextField.text else {return}
+        guard let blueText = blueTextField.text else {return}
+        guard let alphaText = alphaTextField.text else {return}
+        
+        print("Text entered : \(redText), \(greenText), \(blueText), \(alphaText)")
         
         
+        switch conversion {
+        case .hexToRGB:
+            convertHexToRGB()
+        case .RGBToHex:
+            convertRGBToHex()
+        }
     }
     
     func convertHexToRGB(){
