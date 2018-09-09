@@ -70,7 +70,7 @@ class ViewController: UIViewController {
             
         // RGB to hex değeri seçildiyse
         case .RGBToHex:
-            convertRGBToHex()
+            self.view.backgroundColor = convertRGBToHex()
         }
     }
     
@@ -101,8 +101,32 @@ class ViewController: UIViewController {
         return backgroundColor
     }
     
-    func convertRGBToHex()  {
+    func convertRGBToHex() -> UIColor?  {
     
+        guard let redText = UInt8(redTextField.text!)  else {return nil}
+        guard let greenText = UInt8(greenTextField.text!)  else {return nil}
+        guard let blueText = UInt(blueTextField.text!) else {return nil}
+        guard let alphaText = Float(alphaTextField.text!) else {return nil}
+        
+        // alfa değeri 1 ya da 0 ise değeri döndür.
+        if alphaText > 1 || alphaText  < 0{
+            return nil
+        }
+        
+         let redString = String(format: "%2X", redText)
+         let greenString = String(format: "%2X", greenText)
+         let blueString = String(format: "%2X", blueText)
+        
+        print("Text entered : \(redText), \(greenText), \(blueText), \(alphaText)")
+        
+        // labelde girilen renklerin dönüştürülmüş değerleri gözküyor.
+        resultsLabel.text = "Hex Code : #\(redString)\(greenString) \(blueString)\n Alpha : \(alphaText) "
+        
+        // arka plan renginin ayarlanması
+        let backgroundColor = UIColor(red: CGFloat(Float(redText) / 255), green: CGFloat(Float(greenText) / 255), blue: CGFloat(Float(blueText) / 255), alpha: CGFloat(alphaText))
+        
+        // arka plan rengi döndürülüyor.
+        return backgroundColor
     }
     
 }
