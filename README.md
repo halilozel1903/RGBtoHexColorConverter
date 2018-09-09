@@ -1,5 +1,7 @@
 # RGB to Hex & Hex to RGB Converter App
 
+![Colors](colors.jpg)
+
 RGB to Hex ve Hex to RGB dönüşümleri ile ilgili bir iOS uygulamasıdır. <br>
 Uygulama Swift-4 ile geliştirilmektedir. <br>
 Kullanıcıdan alınan değerlere göre dönüşümler yapılmaktadır. <br>
@@ -70,6 +72,8 @@ Hex = FFD700
 Altı renk kodunun 2 sol hanesini alın ve kırmızı renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
 Altı renk kodunun 2 orta basamağını alın ve yeşil renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
 Altıgen renk kodunun 2 hanesini alın ve mavi renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
+
+### Examples
 
 __Example #1__
 
