@@ -123,5 +123,11 @@ RGB = (255, 215, 0)
 
 
 
+Yararlanılan Linkler
 
+1 - https://www.udemy.com/ios11tutorial/learn
+2 - https://www.rapidtables.com/convert/color/rgb-to-hex.html
+3 - https://www.rapidtables.com/convert/color/hex-to-rgb.html
+4 - http://www.matbuu.com/yardimmerkezi/rgb-nedir/
+5 - https://ahmetimamoglu.com.tr/bit-byte-binary-decimal-ve-hexadecimal-nedir
 
