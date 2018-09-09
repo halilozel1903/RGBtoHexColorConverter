@@ -32,6 +32,8 @@ Hexadecimal “On altılık” düzenin alabileceği değerler; 0,1,2,3,4,5,6,7,
 Kırmızı, yeşil ve mavi renk değerlerini onluktan onaltıya dönüştürün. <br>
 Kırmızı, yeşil ve mavi togather: RRGGBB'nin 3 hex değerini birleştirin. <br>
 
+<img src = "pic2.png" width=350>
+
 
 ### Examples
 
@@ -72,6 +74,8 @@ Hex = FFD700
 Altı renk kodunun 2 sol hanesini alın ve kırmızı renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
 Altı renk kodunun 2 orta basamağını alın ve yeşil renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
 Altıgen renk kodunun 2 hanesini alın ve mavi renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
+
+<img src = "pic1.png" width=350>
 
 ### Examples
 
@@ -115,3 +119,9 @@ OR
 RGB = (255, 215, 0)
 
 <br> <br>
+
+
+
+
+
+
