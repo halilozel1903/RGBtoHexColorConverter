@@ -50,6 +50,7 @@ Hex = FF0000
 <br> <br>
 
 __Example #2__
+
 Convert gold color (255,215,0) to hex color code:
 
 R = (255)10 = (FF)16
@@ -64,8 +65,49 @@ Hex = FFD700
 
 <br> <br>
 
-### Hex to RGB conversion
+## Hex to RGB conversion
 
 Altı renk kodunun 2 sol hanesini alın ve kırmızı renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
 Altı renk kodunun 2 orta basamağını alın ve yeşil renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
 Altıgen renk kodunun 2 hanesini alın ve mavi renk seviyesini elde etmek için ondalık değere dönüştürün. <br>
+
+__Example #1__
+
+Convert red hex color code FF0000 to RGB color:
+
+Hex = FF0000
+
+So the RGB colors are:
+
+R = (FF)16 = (255)10
+
+G = (00)16 = (0)10
+
+B = (00)16 = (0)10
+
+OR
+
+RGB = (255, 0, 0)
+
+<br> <br>
+
+
+__Example #2__
+
+Convert gold hex color code FFD700 to RGB color:
+
+Hex = FFD700
+
+So the RGB colors are:
+
+R = (FF)16 = (255)10
+
+G = (D7)16 = (215)10
+
+B = (00)16 = (0)10
+
+OR
+
+RGB = (255, 215, 0)
+
+<br> <br>
