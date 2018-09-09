@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         greenTextField.text?.removeAll() // green alanını silme
         blueTextField.text?.removeAll() // blue alanını silme
         alphaTextField.text?.removeAll() // alpha alanını silme
+        resultsLabel.text?.removeAll() // results alanını silme
     }
     
     // dönüştürme işlemlerinin kontrolü ve başlatılması
@@ -120,7 +121,7 @@ class ViewController: UIViewController {
         print("Text entered : \(redText), \(greenText), \(blueText), \(alphaText)")
         
         // labelde girilen renklerin dönüştürülmüş değerleri gözküyor.
-        resultsLabel.text = "Hex Code : #\(redString)\(greenString) \(blueString)\n Alpha : \(alphaText) "
+        resultsLabel.text = "Hex Code : #\(redString)\(greenString)\(blueString)\n Alpha : \(alphaText) "
         
         // arka plan renginin ayarlanması
         let backgroundColor = UIColor(red: CGFloat(Float(redText) / 255), green: CGFloat(Float(greenText) / 255), blue: CGFloat(Float(blueText) / 255), alpha: CGFloat(alphaText))
