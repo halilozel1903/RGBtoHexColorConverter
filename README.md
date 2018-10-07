@@ -3,7 +3,7 @@
 ![Colors](colors.jpg)
 
 RGB to Hex ve Hex to RGB dönüşümleri ile ilgili bir iOS uygulamasıdır. <br>
-Uygulama Swift-4 ile geliştirilmektedir. <br>
+Uygulama Swift-4.2 ile geliştirilmektedir. <br>
 Kullanıcıdan alınan değerlere göre dönüşümler yapılmaktadır. <br>
 Dönüşümlerde elde edilen değerlere göre uygulamanın arka plan rengi değişmektedir. <br>
 
