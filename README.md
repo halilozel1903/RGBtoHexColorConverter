@@ -1,4 +1,4 @@
-# RGB to Hex & Hex to RGB Converter App 🎨
+# RGB to Hex & Hex to RGB Converter App 🎨 🌈
 
 ![Colors](colors.jpg)
 
