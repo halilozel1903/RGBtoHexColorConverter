@@ -29,8 +29,8 @@ It is called hexadecimal because the total number of characters from 0 to F is 1
 
 ## RGB to hex conversion
 
-Kırmızı, yeşil ve mavi renk değerlerini onluktan onaltıya dönüştürün. <br>
-Kırmızı, yeşil ve mavi togather: RRGGBB'nin 3 hex değerini birleştirin. <br>
+Convert the red, green, and blue color values from decimal to hexadecimal. <br>
+Red, green and blue togather: Combine 3 hexes of RRGGBB. <br>
 
 <img src = "pic2.png" width=350>
 
