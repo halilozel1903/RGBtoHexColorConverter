@@ -18,12 +18,12 @@ The RGB color system is used in digital systems (scanners, digital cameras, etc.
 
 <br>
 
-## Hex(Hexadecimal) Nedir ?
+## What is Hex(Hexadecimal)?
 
 ![Heksadesimal](Heksadesimal.png)
 
-Hexadecimal “On altılık” düzenin alabileceği değerler; 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F’dir, <br>
-0’dan F’ye kadar olan karakterlerin toplam adedi 16 olduğu için on altılık düzen denilmektedir. 
+Hexadecimal Values that the hexadecimal system can take: 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F, <br>
+It is called hexadecimal because the total number of characters from 0 to F is 16.
 
 <br>
 
