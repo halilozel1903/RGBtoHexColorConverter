@@ -2,19 +2,19 @@
 
 ![Colors](colors.jpg)
 
-RGB to Hex ve Hex to RGB dönüşümleri ile ilgili bir iOS uygulamasıdır. <br>
-Uygulama Swift-4.2 ile geliştirilmektedir. <br>
-Kullanıcıdan alınan değerlere göre dönüşümler yapılmaktadır. <br>
-Dönüşümlerde elde edilen değerlere göre uygulamanın arka plan rengi değişmektedir. <br>
+It is an iOS application related to RGB to Hex and Hex to RGB conversions. <br>
+The application is developed with Swift. <br>
+Conversions are made according to the values received from the user. <br>
+The background color of the application changes depending on the values obtained in the conversions. <br>
 
 <br>
 
-## RGB Nedir ?
+## What is RGB?
 
 ![Rgb](rgb.png)
 
-Red (kırmızı) , Green (yeşil), Blue (mavi) renklerinden oluşmuş, bir renk sistemidir.<br>
-RGB renk sistemi, insan gözünü taklit eden dijital sistemlerde (tarayıcılar, dijital kameralar vb.) ve monitörlerde kullanılır.
+It is a color system consisting of the colors Red, Green and Blue.<br>
+The RGB color system is used in digital systems (scanners, digital cameras, etc.) and monitors that mimic the human eye.
 
 <br>
 
