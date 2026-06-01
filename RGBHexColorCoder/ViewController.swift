@@ -10,13 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
     private let maxColorComponent: CGFloat = 255.0
-    private let currentLocaleDecimalFormatter: NumberFormatter = {
+    private static let currentLocaleDecimalFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         return formatter
     }()
 
-    private let posixDecimalFormatter: NumberFormatter = {
+    private static let posixDecimalFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -114,9 +114,9 @@ class ViewController: UIViewController {
             redTextField.placeholder = "Red (0-255)"
             greenTextField.placeholder = "Green (0-255)"
             blueTextField.placeholder = "Blue (0-255)"
-            redTextField.keyboardType = .numberPad
-            greenTextField.keyboardType = .numberPad
-            blueTextField.keyboardType = .numberPad
+            redTextField.keyboardType = .decimalPad
+            greenTextField.keyboardType = .decimalPad
+            blueTextField.keyboardType = .decimalPad
         }
 
         alphaTextField.placeholder = "Alpha (0.0-1.0)"
@@ -163,8 +163,8 @@ class ViewController: UIViewController {
             return nil
         }
 
-        let alphaValue = currentLocaleDecimalFormatter.number(from: rawValue)?.doubleValue
-            ?? posixDecimalFormatter.number(from: rawValue)?.doubleValue
+        let alphaValue = Self.currentLocaleDecimalFormatter.number(from: rawValue)?.doubleValue
+            ?? Self.posixDecimalFormatter.number(from: rawValue)?.doubleValue
 
         guard let alpha = alphaValue, (0...1).contains(alpha) else {
             return nil
