@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let maxColorComponent: CGFloat = 255.0
+
     @IBOutlet weak var redTextField: UITextField!
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
@@ -144,14 +146,15 @@ class ViewController: UIViewController {
             return nil
         }
 
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
+        let currentLocaleFormatter = NumberFormatter()
+        currentLocaleFormatter.numberStyle = .decimal
 
-        var alphaValue = formatter.number(from: rawValue)?.doubleValue
-        if alphaValue == nil {
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            alphaValue = formatter.number(from: rawValue)?.doubleValue
-        }
+        let posixFormatter = NumberFormatter()
+        posixFormatter.numberStyle = .decimal
+        posixFormatter.locale = Locale(identifier: "en_US_POSIX")
+
+        let alphaValue = currentLocaleFormatter.number(from: rawValue)?.doubleValue
+            ?? posixFormatter.number(from: rawValue)?.doubleValue
 
         guard let alpha = alphaValue, (0...1).contains(alpha) else {
             return nil
@@ -162,9 +165,9 @@ class ViewController: UIViewController {
 
     private func makeColor(red: UInt8, green: UInt8, blue: UInt8, alpha: CGFloat) -> UIColor {
         return UIColor(
-            red: CGFloat(red) / 255,
-            green: CGFloat(green) / 255,
-            blue: CGFloat(blue) / 255,
+            red: CGFloat(red) / maxColorComponent,
+            green: CGFloat(green) / maxColorComponent,
+            blue: CGFloat(blue) / maxColorComponent,
             alpha: alpha
         )
     }
