@@ -132,15 +132,28 @@ class ViewController: UIViewController {
             return nil
         }
 
-        return UInt8(value)
+        guard let component = Int(value), (0...255).contains(component) else {
+            return nil
+        }
+
+        return UInt8(component)
     }
 
     private func parseAlpha(_ text: String?) -> CGFloat? {
-        guard
-            let rawValue = text?.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: "."),
-            let alpha = Double(rawValue),
-            (0...1).contains(alpha)
-        else {
+        guard let rawValue = text?.trimmingCharacters(in: .whitespacesAndNewlines), !rawValue.isEmpty else {
+            return nil
+        }
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+
+        let alphaValue = formatter.number(from: rawValue)?.doubleValue
+            ?? {
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                return formatter.number(from: rawValue)?.doubleValue
+            }()
+
+        guard let alpha = alphaValue, (0...1).contains(alpha) else {
             return nil
         }
 
