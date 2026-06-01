@@ -10,6 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     private let maxColorComponent: CGFloat = 255.0
+    private let currentLocaleDecimalFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+
+    private let posixDecimalFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
 
     @IBOutlet weak var redTextField: UITextField!
     @IBOutlet weak var greenTextField: UITextField!
@@ -65,7 +77,8 @@ class ViewController: UIViewController {
             return
         }
 
-        resultsLabel.text = "Red: \(red)\nGreen: \(green)\nBlue: \(blue)\nAlpha: \(alpha)"
+        let alphaText = String(format: "%.2f", alpha)
+        resultsLabel.text = "Red: \(red)\nGreen: \(green)\nBlue: \(blue)\nAlpha: \(alphaText)"
         view.backgroundColor = makeColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
@@ -80,8 +93,9 @@ class ViewController: UIViewController {
             return
         }
 
-        let hexCode = String(format: "#%02X%02X%02X", red, green, blue)
-        resultsLabel.text = "Hex Code: \(hexCode)\nAlpha: \(alpha)"
+        let hexCode = String(format: "#%02X%02X%02X", Int(red), Int(green), Int(blue))
+        let alphaText = String(format: "%.2f", alpha)
+        resultsLabel.text = "Hex Code: \(hexCode)\nAlpha: \(alphaText)"
         view.backgroundColor = makeColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
@@ -149,15 +163,8 @@ class ViewController: UIViewController {
             return nil
         }
 
-        let currentLocaleFormatter = NumberFormatter()
-        currentLocaleFormatter.numberStyle = .decimal
-
-        let posixFormatter = NumberFormatter()
-        posixFormatter.numberStyle = .decimal
-        posixFormatter.locale = Locale(identifier: "en_US_POSIX")
-
-        let alphaValue = currentLocaleFormatter.number(from: rawValue)?.doubleValue
-            ?? posixFormatter.number(from: rawValue)?.doubleValue
+        let alphaValue = currentLocaleDecimalFormatter.number(from: rawValue)?.doubleValue
+            ?? posixDecimalFormatter.number(from: rawValue)?.doubleValue
 
         guard let alpha = alphaValue, (0...1).contains(alpha) else {
             return nil
