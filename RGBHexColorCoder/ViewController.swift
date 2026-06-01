@@ -27,6 +27,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureKeyboardTypes()
         configureForCurrentConversion()
     }
 
@@ -99,6 +100,9 @@ class ViewController: UIViewController {
         }
 
         alphaTextField.placeholder = "Alpha (0.0-1.0)"
+    }
+
+    private func configureKeyboardTypes() {
         alphaTextField.keyboardType = .decimalPad
         redTextField.keyboardType = .numbersAndPunctuation
         greenTextField.keyboardType = .numbersAndPunctuation
