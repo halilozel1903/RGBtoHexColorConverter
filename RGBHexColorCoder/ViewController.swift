@@ -9,126 +9,185 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let maxColorComponent: CGFloat = 255.0
+    private static let currentLocaleDecimalFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
 
-    
+    private static let posixDecimalFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+
     @IBOutlet weak var redTextField: UITextField!
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
     @IBOutlet weak var alphaTextField: UITextField!
     @IBOutlet weak var conversionButton: UIButton!
     @IBOutlet weak var resultsLabel: UILabel!
-    
-    // enum olusturma
-    enum Conversion{
-        
+
+    enum Conversion {
         case hexToRGB
-        case RGBToHex
+        case rgbToHex
     }
-    
-    var conversion : Conversion = .hexToRGB // default nesneye değer atama
-    
+
+    var conversion: Conversion = .hexToRGB
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        alphaTextField.keyboardType = .decimalPad
+        configureForCurrentConversion()
     }
 
-   
     @IBAction func selectSegmentAction(_ sender: UISegmentedControl) {
-        
-        // değeri kontrol etme
         switch sender.selectedSegmentIndex {
         case 0:
-        conversion = .hexToRGB
-            conversionButton.setTitle("Convert hex to RGB", for: .normal)
-            
-        case 1 :
-          conversion = .RGBToHex
-            conversionButton.setTitle("Convert RGB to hex", for: .normal)
+            conversion = .hexToRGB
+        case 1:
+            conversion = .rgbToHex
         default:
             conversion = .hexToRGB
-            conversionButton.setTitle("Convert hex to RGB", for: .normal)
         }
-        
-        print(conversion) // değeri ekranda gösterme
-        redTextField.text?.removeAll() // red alanını silme
-        greenTextField.text?.removeAll() // green alanını silme
-        blueTextField.text?.removeAll() // blue alanını silme
-        alphaTextField.text?.removeAll() // alpha alanını silme
-        resultsLabel.text?.removeAll() // results alanını silme
+
+        clearInputAndResult()
+        configureForCurrentConversion()
     }
-    
-    // dönüştürme işlemlerinin kontrolü ve başlatılması
+
     @IBAction func convertAction(_ sender: UIButton) {
-        
-
-        
         switch conversion {
-        
-        // hex to RGB değeri seçildiyse
         case .hexToRGB:
-            // arka plan rengini değiştir metodu çağrılıyor.
-            self.view.backgroundColor =  convertHexToRGB()
-            
-        // RGB to hex değeri seçildiyse
-        case .RGBToHex:
-            self.view.backgroundColor = convertRGBToHex()
+            convertHexToRGB()
+        case .rgbToHex:
+            convertRGBToHex()
         }
     }
-    
-    // hex to RGB dönüşümü ile ilgili işlemler yapılıyor.
-    func convertHexToRGB() -> UIColor?{
-        
-        // renk değerlerini hex türünde girilecek şekilde dizayn ediliyor.
-        guard let redText = UInt8(redTextField.text!,radix : 16)  else {return nil}
-        guard let greenText = UInt8(greenTextField.text!,radix : 16)  else {return nil}
-        guard let blueText = UInt(blueTextField.text!,radix : 16) else {return nil}
-        guard let alphaText = Float(alphaTextField.text!) else {return nil}
-        
-        // alfa değeri 1 ya da 0 ise değeri döndür.
-        if alphaText > 1 || alphaText  < 0{
-            return nil
-        }
-        
-        // girilen değerleri consolda gösterme
-        print("Text entered : \(redText), \(greenText), \(blueText), \(alphaText)")
-        
-        // labelde girilen renklerin dönüştürülmüş değerleri gözküyor.
-        resultsLabel.text = "Red : \(redText)\n Green : \(greenText)\n Blue : \(blueText)\n Alpha : \(alphaText) "
-        
-        // arka plan renginin ayarlanması
-        let backgroundColor = UIColor(red: CGFloat(Float(redText) / 255), green: CGFloat(Float(greenText) / 255), blue: CGFloat(Float(blueText) / 255), alpha: CGFloat(alphaText))
-        
-        // arka plan rengi döndürülüyor.
-        return backgroundColor
-    }
-    
-    func convertRGBToHex() -> UIColor?  {
-    
-        guard let redText = UInt8(redTextField.text!)  else {return nil}
-        guard let greenText = UInt8(greenTextField.text!)  else {return nil}
-        guard let blueText = UInt(blueTextField.text!) else {return nil}
-        guard let alphaText = Float(alphaTextField.text!) else {return nil}
-        
-        // alfa değeri 1 ya da 0 ise değeri döndür.
-        if alphaText > 1 || alphaText  < 0{
-            return nil
-        }
-        
-         let redString = String(format: "%2X", redText)
-         let greenString = String(format: "%2X", greenText)
-         let blueString = String(format: "%2X", blueText)
-        
-        print("Text entered : \(redText), \(greenText), \(blueText), \(alphaText)")
-        
-        // labelde girilen renklerin dönüştürülmüş değerleri gözküyor.
-        resultsLabel.text = "Hex Code : #\(redString)\(greenString)\(blueString)\n Alpha : \(alphaText) "
-        
-        // arka plan renginin ayarlanması
-        let backgroundColor = UIColor(red: CGFloat(Float(redText) / 255), green: CGFloat(Float(greenText) / 255), blue: CGFloat(Float(blueText) / 255), alpha: CGFloat(alphaText))
-        
-        // arka plan rengi döndürülüyor.
-        return backgroundColor
-    }
-    
-}
 
+    private func convertHexToRGB() {
+        guard
+            let red = parseHexComponent(redTextField.text),
+            let green = parseHexComponent(greenTextField.text),
+            let blue = parseHexComponent(blueTextField.text),
+            let alpha = parseAlpha(alphaTextField.text)
+        else {
+            showValidationError(for: .hexToRGB)
+            return
+        }
+
+        let alphaText = String(format: "%.2f", alpha)
+        resultsLabel.text = "Red: \(red)\nGreen: \(green)\nBlue: \(blue)\nAlpha: \(alphaText)"
+        view.backgroundColor = makeColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    private func convertRGBToHex() {
+        guard
+            let red = parseRGBComponent(redTextField.text),
+            let green = parseRGBComponent(greenTextField.text),
+            let blue = parseRGBComponent(blueTextField.text),
+            let alpha = parseAlpha(alphaTextField.text)
+        else {
+            showValidationError(for: .rgbToHex)
+            return
+        }
+
+        let hexCode = String(format: "#%02X%02X%02X", Int(red), Int(green), Int(blue))
+        let alphaText = String(format: "%.2f", alpha)
+        resultsLabel.text = "Hex Code: \(hexCode)\nAlpha: \(alphaText)"
+        view.backgroundColor = makeColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    private func configureForCurrentConversion() {
+        switch conversion {
+        case .hexToRGB:
+            conversionButton.setTitle("Convert Hex to RGB", for: .normal)
+            redTextField.placeholder = "Red (00-FF)"
+            greenTextField.placeholder = "Green (00-FF)"
+            blueTextField.placeholder = "Blue (00-FF)"
+            redTextField.keyboardType = .asciiCapable
+            greenTextField.keyboardType = .asciiCapable
+            blueTextField.keyboardType = .asciiCapable
+        case .rgbToHex:
+            conversionButton.setTitle("Convert RGB to Hex", for: .normal)
+            redTextField.placeholder = "Red (0-255)"
+            greenTextField.placeholder = "Green (0-255)"
+            blueTextField.placeholder = "Blue (0-255)"
+            redTextField.keyboardType = .decimalPad
+            greenTextField.keyboardType = .decimalPad
+            blueTextField.keyboardType = .decimalPad
+        }
+
+        alphaTextField.placeholder = "Alpha (0.0-1.0)"
+    }
+
+    private func clearInputAndResult() {
+        redTextField.text = ""
+        greenTextField.text = ""
+        blueTextField.text = ""
+        alphaTextField.text = ""
+        resultsLabel.text = "Result"
+    }
+
+    private func parseHexComponent(_ text: String?) -> UInt8? {
+        guard var value = text?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty else {
+            return nil
+        }
+
+        if value.hasPrefix("#") {
+            value.removeFirst()
+        }
+
+        guard value.count <= 2 else {
+            return nil
+        }
+
+        return UInt8(value, radix: 16)
+    }
+
+    private func parseRGBComponent(_ text: String?) -> UInt8? {
+        guard let value = text?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty else {
+            return nil
+        }
+
+        guard let component = Int(value), (0...255).contains(component) else {
+            return nil
+        }
+
+        return UInt8(component)
+    }
+
+    private func parseAlpha(_ text: String?) -> CGFloat? {
+        guard let rawValue = text?.trimmingCharacters(in: .whitespacesAndNewlines), !rawValue.isEmpty else {
+            return nil
+        }
+
+        let alphaValue = Self.currentLocaleDecimalFormatter.number(from: rawValue)?.doubleValue
+            ?? Self.posixDecimalFormatter.number(from: rawValue)?.doubleValue
+
+        guard let alpha = alphaValue, (0...1).contains(alpha) else {
+            return nil
+        }
+
+        return CGFloat(alpha)
+    }
+
+    private func makeColor(red: UInt8, green: UInt8, blue: UInt8, alpha: CGFloat) -> UIColor {
+        UIColor(
+            red: CGFloat(red) / maxColorComponent,
+            green: CGFloat(green) / maxColorComponent,
+            blue: CGFloat(blue) / maxColorComponent,
+            alpha: alpha
+        )
+    }
+
+    private func showValidationError(for conversion: Conversion) {
+        switch conversion {
+        case .hexToRGB:
+            resultsLabel.text = "Please enter valid hex values (00-FF) and alpha between 0 and 1."
+        case .rgbToHex:
+            resultsLabel.text = "Please enter valid RGB values (0-255) and alpha between 0 and 1."
+        }
+    }
+}
