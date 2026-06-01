@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         }
 
         resultsLabel.text = "Red: \(red)\nGreen: \(green)\nBlue: \(blue)\nAlpha: \(alpha)"
-        view.backgroundColor = color(red: red, green: green, blue: blue, alpha: alpha)
+        view.backgroundColor = makeColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
     private func convertRGBToHex() {
@@ -79,7 +79,7 @@ class ViewController: UIViewController {
 
         let hexCode = String(format: "#%02X%02X%02X", red, green, blue)
         resultsLabel.text = "Hex Code: \(hexCode)\nAlpha: \(alpha)"
-        view.backgroundColor = color(red: red, green: green, blue: blue, alpha: alpha)
+        view.backgroundColor = makeColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
     private func configureForCurrentConversion() {
@@ -147,11 +147,11 @@ class ViewController: UIViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
 
-        let alphaValue = formatter.number(from: rawValue)?.doubleValue
-            ?? {
-                formatter.locale = Locale(identifier: "en_US_POSIX")
-                return formatter.number(from: rawValue)?.doubleValue
-            }()
+        var alphaValue = formatter.number(from: rawValue)?.doubleValue
+        if alphaValue == nil {
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            alphaValue = formatter.number(from: rawValue)?.doubleValue
+        }
 
         guard let alpha = alphaValue, (0...1).contains(alpha) else {
             return nil
@@ -160,7 +160,7 @@ class ViewController: UIViewController {
         return CGFloat(alpha)
     }
 
-    private func color(red: UInt8, green: UInt8, blue: UInt8, alpha: CGFloat) -> UIColor {
+    private func makeColor(red: UInt8, green: UInt8, blue: UInt8, alpha: CGFloat) -> UIColor {
         return UIColor(
             red: CGFloat(red) / 255,
             green: CGFloat(green) / 255,
