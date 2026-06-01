@@ -27,7 +27,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureKeyboardTypes()
+        alphaTextField.keyboardType = .decimalPad
         configureForCurrentConversion()
     }
 
@@ -92,21 +92,20 @@ class ViewController: UIViewController {
             redTextField.placeholder = "Red (00-FF)"
             greenTextField.placeholder = "Green (00-FF)"
             blueTextField.placeholder = "Blue (00-FF)"
+            redTextField.keyboardType = .asciiCapable
+            greenTextField.keyboardType = .asciiCapable
+            blueTextField.keyboardType = .asciiCapable
         case .rgbToHex:
             conversionButton.setTitle("Convert RGB to Hex", for: .normal)
             redTextField.placeholder = "Red (0-255)"
             greenTextField.placeholder = "Green (0-255)"
             blueTextField.placeholder = "Blue (0-255)"
+            redTextField.keyboardType = .numberPad
+            greenTextField.keyboardType = .numberPad
+            blueTextField.keyboardType = .numberPad
         }
 
         alphaTextField.placeholder = "Alpha (0.0-1.0)"
-    }
-
-    private func configureKeyboardTypes() {
-        alphaTextField.keyboardType = .decimalPad
-        redTextField.keyboardType = .numbersAndPunctuation
-        greenTextField.keyboardType = .numbersAndPunctuation
-        blueTextField.keyboardType = .numbersAndPunctuation
     }
 
     private func clearInputAndResult() {
@@ -168,7 +167,7 @@ class ViewController: UIViewController {
     }
 
     private func makeColor(red: UInt8, green: UInt8, blue: UInt8, alpha: CGFloat) -> UIColor {
-        return UIColor(
+        UIColor(
             red: CGFloat(red) / maxColorComponent,
             green: CGFloat(green) / maxColorComponent,
             blue: CGFloat(blue) / maxColorComponent,
